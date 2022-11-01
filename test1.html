@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h3>{{time |rowformat|demo1|demo2}}</h3>
+        <div :class="raw"></div>
+        <input type="text" v-model="obj.age">
+    </div>
+    <script src="/lib/jquery.min.js"></script>
+    <script src="axios.js"></script>
+    <script src="dayjs.min.js"></script>
+    <script src="vue.js"></script>
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                name: "zhangsan",
+                obj: {
+                    age: 18
+                },
+                gender: "man",
+                raw: "hello",
+                time: "2019-08-02 12:12:12"
+            },
+            filters: {
+                filts(val) {
+                    const first = val.charAt(0).toUpperCase();
+                    const other = val.slice(1);
+
+                    return first + other
+                },
+                rowformat(time) {
+                    return dayjs(time).format('YYYY-MM-DD HH:mm:ss');
+                },
+                demo1() {
+                    return "demo1"
+                },
+                demo2() {
+                    return "demo2"
+                }
+            },
+            watch: {
+                'obj.age' (newval, oldval) {
+                    console.log(newval, oldval);
+                },
+                // age: {
+                //     handler(val, oldval) {
+                //         if (val == "") return console.log("请输入数据");
+                //         $.get("https://www.escook.cn/api/finduser/" + val, function(res) {
+                //             if (res.message !== 0) return console.log(res.message);
+                //         })
+
+                //     },
+                //     immediate: true,
+                //     deep: true
+                // },
+                // age(val) {
+                // if (val == "") return console.log("请输入数据");
+                // $.get("https://www.escook.cn/api/finduser/" + val, function(res) {
+                //     if (res.message !== 0) return console.log(res.message);
+                // })
+                // }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h3></h3>
+        <button @click="add">按钮</button>
+        <button @click="posts">post</button>
+    </div>
+    <script src="axios.js"></script>
+    <script src="vue.js"></script>
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                name: "zhangsan",
+                num: 20
+            },
+            methods: {
+                async add() {
+                    const {
+                        data: res
+                    } = await axios({
+                        method: "GET",
+                        url: "http://liulongbin.top:3006/api/getbooks"
+                    })
+                    console.log(res.data);
+
+                },
+                async posts() {
+                    const {
+                        data: res
+                    } = await axios({
+                        method: "POST",
+                        url: "http://liulongbin.top:3006/api/addbook",
+                        data: {
+                            bookname: "考研真题a",
+                            author: "周百万",
+                            publisher: "山东出版社"
+                        }
+
+                    })
+                    console.log(res.msg);
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

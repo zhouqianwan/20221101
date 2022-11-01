@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model.number="r">
+        <input type="text" v-model.number="g">
+        <input type="text" v-model.number="b">
+        <div :class="{name}"></div>
+        <div class="box" :style="{backgroundColor:rgb}"></div>
+        <h3 v-for="item in book">{{item.bookname}},{{item.id}},{{item.author}}</h3>
+        <h3 v-for="item in book"></h3>
+        <h3 v-for="item in book"></h3>
+        <button @click="add">按钮</button> {{rgb}}
+    </div>
+    <script src="axios.js"></script>
+    <script src=" vue.js "></script>
+    <script>
+        const vm = new Vue({
+                el: "#app ",
+                data: {
+                    name: "zhangsan ",
+                    age: 18,
+                    r: 60,
+                    g: 60,
+                    b: 60,
+                    pink: "pink",
+                    book: []
+                },
+                watch: {
+                    r() {
+                        console.log(this.r, this.g, this.b);
+                    }
+                },
+                computed: {
+                    rgb() {
+                        return `rgb(${this.r},${this.g},${this.b})`
+                    }
+                },
+                methods: {
+                    async add() {
+                        const {
+                            data: res
+                        } = await axios({
+                            method: "GET",
+                            url: "http://liulongbin.top:3006/api/getbooks"
+
+                        })
+                        console.log(res.data);
+                    }
+                }
+            })
+            // const result = axios({
+            //         method: "GET",
+            //         url: "http://liulongbin.top:3006/api/getbooks",
+            //         params: {
+            //             id: 1
+            //         }
+            //     })
+            // async  async   async   async   async  async  
+            // document.querySelector("button").onclick = async function() {
+            //     const {
+            //         data: res
+            //     } = await axios({
+            //         method: "GET",
+            //         url: "http://liulongbin.top:3006/api/getbooks",
+            //         params: {
+            //             id: 1
+            //         }
+            //     })
+            //     console.log(res.data);
+            // }
+
+
+        // console.log(result);
+        // result.then(function(book) {
+        //     console.log(book);
+        //     console.log(book.data);
+        //     console.log(book.data.data, 11111);
+        //     vm.book = book.data.data
+        // })
+    </script>
+</body>
+
+</html>
